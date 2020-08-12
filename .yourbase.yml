@@ -4,17 +4,15 @@ dependencies:
 
 build_targets:
   - name: checks
-    host_only: true
     tags:
       project: 3
     container:
       image: yourbase/kotinos-ubuntu-jdk:18.04_8
     commands:
-      - bash -c 'unset JAVA_HOME; export PATH="/usr/bin:$PATH"; mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -pl :camel-buildtools install'
+      - mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -pl :camel-buildtools install
       #- mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -Psourcecheck -Dcheckstyle.failOnViolation=false checkstyle:check
 
   - name: default
-    host_only: true
     tags:
       project: 3
     container:
@@ -24,5 +22,7 @@ build_targets:
 
 ci:
   builds:
-    - name: default
+    - name: checks
       build_target: checks
+    - name: default
+      build_target: default

@@ -1,0 +1,22 @@
+dependencies:
+  build:
+   - maven:3.3.3
+
+build_targets:
+  - name: checks
+    host_only: true
+    commands:
+      - mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -pl :camel-buildtools install
+      - mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -Psourcecheck -Dcheckstyle.failOnViolation=false checkstyle:check
+
+  - name: default
+    host_only: true
+    container:
+      image: yourbase/kotinos-ubuntu-jdk:18.04_8
+    commands:
+      - mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -Dmaven.test.failure.ignore=true clean install
+
+ci:
+  builds:
+    - name: default
+      build_target: default

@@ -10,7 +10,7 @@ build_targets:
     container:
       image: yourbase/kotinos-ubuntu-jdk:18.04_8
     commands:
-      - bash -c 'unset JAVA_HOME; export PATH="/usr/bin:$PATH" mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -pl :camel-buildtools install'
+      - bash -c 'unset JAVA_HOME; export PATH="/usr/bin:$PATH"; mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -pl :camel-buildtools install'
       #- mvn -U -B -e -fae -V -Dnoassembly -Dmaven.compiler.fork=true -Dsurefire.rerunFailingTestsCount=2 -Psourcecheck -Dcheckstyle.failOnViolation=false checkstyle:check
 
   - name: default

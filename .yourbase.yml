@@ -11,6 +11,8 @@ build_targets:
 
   - name: default
     host_only: true
+    tags:
+      project: 3
     container:
       image: yourbase/kotinos-ubuntu-jdk:18.04_8
     commands:
